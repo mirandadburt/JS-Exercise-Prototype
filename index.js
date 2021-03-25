@@ -18,11 +18,13 @@ function Airplane(name) {
   Airplane.prototype.land = function () {
     this.isFlying = false;
   };
-  
+  // const AirCraft = new Airplane(myAirplane,isflying,takeoff,land)
   
   /*
   // 👇 COMPLETE YOUR WORK BELOW 👇
+
   // 👇 COMPLETE YOUR WORK BELOW 👇
+
   // 👇 COMPLETE YOUR WORK BELOW 👇
   */
   
@@ -38,17 +40,30 @@ function Airplane(name) {
       - Give instances of Person a method `.toString()`:
           + It should return a string with `name` and `age`. Example: "Mary, 50"
   */
-  
- function Person() {
-    
-  }
- 
- 
+          function Person(name, age){
+            this.name = name;
+            this.age = age;
+            this.stomach = [];
+          }
+      Person.prototype.eat= function(someFood){
+        if (this.stomach.length<10)
+            this.stomach.push(someFood);
+      }
+      Person.prototype.poop= function(){
+        this.stomach.splice(0, this.stomach.length)
+      }
+      Person.prototype.toString = function(){
+        return `${this.name}, ${this.age}`
+      }
 
-  
-  
-  
-  
+
+
+       let Mary = new Person('Mary', 50);
+          console.log(Mary.stomach)
+          Mary.eat("pizza")
+          console.log(Mary.stomach)
+          console.log('stuff', Mary.toString())
+        
   /*
     TASK 2
       - Write a Car constructor that initializes `model` and `milesPerGallon` from arguments.
@@ -63,9 +78,18 @@ function Airplane(name) {
           + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
   */
   
- function Car() {
-    
+ function Car(model, milesPerGallon) {
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    this.tank = 0;
+    this.odometer = 0;
   }
+
+  Car.prototype.fill = function(gallons) {
+    this.tank += gallons
+
+  }
+
   
   
   /*
@@ -75,11 +99,29 @@ function Airplane(name) {
       - Besides the methods on Person.prototype, babies have the ability to `.play()`:
           + Should return a string "Playing with x", x being the favorite toy.
   */
- function Baby() {
-   
+
+ function Baby(name,age, favoriteToy) {
+  Person.call(this, name,age)
+   Baby.prototype = Object.create(Person.prototype);
+   this.favoriteToy = favoriteToy;
   }
- 
-  
+ Baby.prototype.play = function (){
+   return`Playing with ${'favoriteToy'}.`
+ }
+
+//  function Parent() { /* ... */ }
+// Parent.prototype.parentMethod = function parentMethod() {}
+
+// function Child() {
+//    Parent.call(this) // Make sure everything is initialized properly
+// }
+// Child.prototype = Object.create(Parent.prototype) // re-define child prototype to Parent prototype
+
+// Child.prototype.constructor = Child // return original constructor to Child
+
+ let Tommy = new Baby('Tommy', 2,'trains');
+ console.log(Tommy.play)
+ console.log(Tommy.poop)
   /* 
     TASK 4
     In your own words explain the four principles for the "this" keyword below:
