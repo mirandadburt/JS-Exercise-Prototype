@@ -100,14 +100,24 @@ function Airplane(name) {
           + Should return a string "Playing with x", x being the favorite toy.
   */
 
- function Baby(name,age, favoriteToy) {
-  Person.call(this, name,age)
-   Baby.prototype = Object.create(Person.prototype);
+ function Baby(name,age, favoriteToy){
+   Person.call(this, name,age)
    this.favoriteToy = favoriteToy;
   }
- Baby.prototype.play = function (){
-   return`Playing with ${'favoriteToy'}.`
+
+  Baby.prototype = Object.create(Person.prototype);
+  
+  Baby.prototype.play = function(){
+   return`Playing with ${this.favoriteToy}.`
  }
+
+
+//  97 |     it('can play with favorite toy', () => {
+// >  98 |       expect(baby.play()).toContain('trains')
+//     |                   ^
+//  99 |     })
+// 100 |     it('inherit the methods on Person.prototype', () => {
+// 101 |       expect(baby.__proto__.eat).not.toBeUndefined();
 
 //  function Parent() { /* ... */ }
 // Parent.prototype.parentMethod = function parentMethod() {}
@@ -119,9 +129,11 @@ function Airplane(name) {
 
 // Child.prototype.constructor = Child // return original constructor to Child
 
- let Tommy = new Baby('Tommy', 2,'trains');
- console.log(Tommy.play)
- console.log(Tommy.poop)
+ let Tommy = new Baby('Tommy',2,'trains');
+  console.log(Tommy)
+  console.log(Tommy.play());
+  console.log(Tommy.eat('pizza'))
+  console.log(Tommy.favoriteToy);
   /* 
     TASK 4
     In your own words explain the four principles for the "this" keyword below:
